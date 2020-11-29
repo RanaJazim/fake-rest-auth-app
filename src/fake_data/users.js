@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const {
   EmailNotFound,
   PasswordNotMatched,
@@ -47,6 +48,11 @@ function login(email, password) {
   if (user.password !== password)
     throw new PasswordNotMatched("Plese enter correct password");
 
+  const token = jwt.sign(
+    { id: user.id, name: user.name, email: user.email },
+    "secret-key"
+  );
+  user.token = token;
   return user;
 }
 

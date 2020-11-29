@@ -38,7 +38,7 @@ exports.login = function (req, res) {
 
   try {
     const user = db.login(credentials.email, credentials.password);
-    res.send(user);
+    res.send(user.token);
   } catch (err) {
     if (err instanceof EmailNotFound) res.status(400).send(err.message);
     else if (err instanceof PasswordNotMatched)
