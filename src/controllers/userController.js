@@ -1,5 +1,5 @@
 const excep = require("../exceptions/validation_exception");
-const db = require("../fake_data/users");
+const db = require("../db/users");
 const schema = require("../validation/user");
 const validate = require("../validation/validate");
 
@@ -19,7 +19,7 @@ exports.register = function (req, res) {
       credentials.email,
       credentials.password
     );
-    res.send(user);
+    res.send({ message: "Succesfully created the user" });
   } catch (err) {
     if (err instanceof excep.EmailAlreadyExists)
       res.status(400).send(err.message);
