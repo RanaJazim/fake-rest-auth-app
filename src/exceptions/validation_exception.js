@@ -12,7 +12,14 @@ class PasswordNotMatched extends Error {
   }
 }
 
+class EmailAlreadyExists extends Error {
+  constructor(...params) {
+    super(...params);
+  }
+}
+
 module.exports = {
   EmailNotFound,
   PasswordNotMatched,
+  EmailAlreadyExists
 };

@@ -1,8 +1,5 @@
 const jwt = require("jsonwebtoken");
-const {
-  EmailNotFound,
-  PasswordNotMatched,
-} = require("../exceptions/validation_exception");
+const excep = require("../exceptions/validation_exception");
 
 let lastUserId = 3;
 
@@ -33,6 +30,11 @@ function isUserExists(email) {
 }
 
 function register(name, email, password) {
+  if (isUserExists(email))
+    throw new excep.EmailAlreadyExists(
+      "Try different email.This email already exists"
+    );
+
   const user = { id: ++lastUserId, name, email, password };
   users.push(user);
   return user;
@@ -41,12 +43,12 @@ function register(name, email, password) {
 function login(email, password) {
   const user = users.find((user) => user.email === email);
   if (!user)
-    throw new EmailNotFound(
+    throw new excep.EmailNotFound(
       `Please enter valid email. This ${email} is not found in the database`
     );
 
   if (user.password !== password)
-    throw new PasswordNotMatched("Plese enter correct password");
+    throw new excep.PasswordNotMatched("Plese enter correct password");
 
   const token = jwt.sign(
     { id: user.id, name: user.name, email: user.email },
