@@ -4,7 +4,12 @@ const schema = require("../validation/user");
 const validate = require("../validation/validate");
 
 exports.users = function (req, res) {
-  res.send(db.users);
+  res.send(db.getUsers());
+};
+
+exports.me = function (req, res) {
+  const user = db.getUser(req.user.id);
+  res.send(user);
 };
 
 exports.register = function (req, res) {

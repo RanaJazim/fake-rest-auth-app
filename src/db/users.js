@@ -6,20 +6,20 @@ let lastUserId = 3;
 const users = [
   {
     id: 1,
-    name: "Jazim Abbas",
-    email: "jazimabbas@gmail.com",
+    name: "User 1",
+    email: "user1@gmail.com",
     password: "password",
   },
   {
     id: 2,
-    name: "Illiyas",
-    email: "illiyas@gmail.com",
+    name: "User 2",
+    email: "user2@gmail.com",
     password: "password",
   },
   {
     id: 3,
-    name: "Noor",
-    email: "noor@gmail.com",
+    name: "User 3",
+    email: "user3@gmail.com",
     password: "password",
   },
 ];
@@ -27,6 +27,16 @@ const users = [
 function isUserExists(email) {
   const user = users.find((user) => user.email === email);
   return user ? true : false;
+}
+
+function getUser(id) {
+  return users.find((user) => user.id === id);
+}
+
+function getUsers() {
+  return users.map((user) => {
+    return { id: user.id, name: user.name, email: user.email };
+  });
 }
 
 function register(name, email, password) {
@@ -50,10 +60,7 @@ function login(email, password) {
   if (user.password !== password)
     throw new excep.PasswordNotMatched("Plese enter correct password");
 
-  const token = jwt.sign(
-    { id: user.id, name: user.name, email: user.email },
-    "secret-key"
-  );
+  const token = jwt.sign({ id: user.id, email: user.email }, "secret-key");
   user.token = token;
   return user;
 }
@@ -61,6 +68,7 @@ function login(email, password) {
 module.exports = {
   register,
   login,
-  isUserExists,
+  getUser,
+  getUsers,
   users,
 };
