@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const excep = require("../exceptions/validation_exception");
+const excep = require("../exceptions/custom_exception");
 
 let lastUserId = 3;
 

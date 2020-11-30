@@ -1,5 +1,3 @@
-const { param } = require("../routes/auth");
-
 class EmailNotFound extends Error {
   constructor(...params) {
     super(...params);
@@ -21,5 +19,5 @@ class EmailAlreadyExists extends Error {
 module.exports = {
   EmailNotFound,
   PasswordNotMatched,
-  EmailAlreadyExists
+  EmailAlreadyExists,
 };

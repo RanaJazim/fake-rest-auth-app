@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const authRouter = require("./routes/auth");
 const delay = require("./middleware/delay");
+const envConfig = require("./utils/env");
+const uncaughtException = require("./exceptions/uncaught_exceptions");
+
+process.on("uncaughtException", uncaughtException);
+envConfig();
 
 const app = express();
 

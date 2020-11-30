@@ -1,5 +1,5 @@
-const excep = require("../exceptions/validation_exception");
 const db = require("../db/users");
+const excep = require("../exceptions/custom_exception");
 const schema = require("../validation/user");
 const validate = require("../validation/validate");
 
