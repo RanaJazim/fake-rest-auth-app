@@ -1,3 +1,4 @@
+const _ = require("underscore");
 const db = require("../db/users");
 const excep = require("../exceptions/custom_exception");
 const schema = require("../validation/user");
@@ -39,7 +40,7 @@ exports.login = function (req, res) {
 
   try {
     const user = db.login(credentials.email, credentials.password);
-    res.send(user.token);
+    res.send(_.pick(user, "id", "email", "token"));
   } catch (err) {
     if (err instanceof excep.EmailNotFound) res.status(400).send(err.message);
     else if (err instanceof excep.PasswordNotMatched)
