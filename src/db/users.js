@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const config = require("config");
 const excep = require("../exceptions/custom_exception");
 
 let lastUserId = 3;
@@ -30,7 +31,8 @@ function isUserExists(email) {
 }
 
 function getUser(id) {
-  return users.find((user) => user.id === id);
+  const user = users.find((user) => user.id === id);
+  return { id: user.id, name: user.name, email: user.email };
 }
 
 function getUsers() {
@@ -60,7 +62,10 @@ function login(email, password) {
   if (user.password !== password)
     throw new excep.PasswordNotMatched("Plese enter correct password");
 
-  const token = jwt.sign({ id: user.id, email: user.email }, "secret-key");
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    config.get("app.secret")
+  );
   user.token = token;
   return user;
 }

@@ -6,6 +6,5 @@ module.exports = function () {
     const msg =
       "You are not setting the key or maybe you type incorrect key. Make sure you type right key .";
     throw new Error(msg);
-    // process.exit(0);
   }
 };
